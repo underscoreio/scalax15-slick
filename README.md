@@ -61,5 +61,5 @@ and code samples about Scala, Slick, and functional programming.
 [Dave Gurnell]: http://davegurnell.com
 [Underscore]: http://underscore.io
 [CC-BY-NC-SA 4.0]: http://creativecommons.org/licenses/by-nc-sa/4.0/
-[newsletter]: http://underscore.io/newsletter.html
+[Underscore newsletter]: http://underscore.io/newsletter.html
 [Gitter channel]: https://gitter.im/underscoreio/scalax15-slick
