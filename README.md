@@ -43,6 +43,9 @@ If you have any problems please let me know on the [Gitter channel].
 
    If not, let me know on the [Gitter channel].
 
+4. If you use an IDE that requires further setup, do that now.
+   I've included the `sbteclipse` and `ensime-sbt` plugins in the build.
+
 I'll post the complete workshop code and slides immediately prior to the conference.
 All you'll have to do on the day is `git pull` and start coding.
 Looking forward to seeing you there!
