@@ -3,17 +3,16 @@ Slick Workshop for Scala Exchange 2015
 
 Slides and companion material for the Slick workshop from [Scala Exchange 2015].
 
-Copyright 2014 [Dave Gurnell] of [Underscore].
+Copyright 2014 [Dave Gurnell] of [Underscore]. Licensed [CC-BY-NC-SA 4.0].
 
-Licensed [CC-BY-NC-SA 4.0].
+**IMPORTANT! Please follow the QUICK START below PRIOR TO THE CONFERENCE.**
 
 [![Join the chat at https://gitter.im/underscoreio/scalax15-slick](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/underscoreio/scalax15-slick?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 # Quick Start
 
-**Follow the instructions below PRIOR TO THE CONFERENCE to get started.**
+Follow the instructions below prior to the conference to get started.
 Doing so will prevent you having to download the internet on conference wifi!
-
 You will need a Java 8 compatible JVM and a familiar programmer's text editor or IDE.
 If you have any problems please let me know on the [Gitter channel].
 
