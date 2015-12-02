@@ -1,4 +1,4 @@
-package tables
+package queries
 
 import slick.driver.H2Driver.api._
 
