@@ -6,7 +6,7 @@ import scala.concurrent.ExecutionContext.Implicits.global
 
 import slick.driver.H2Driver.api._
 
-object HelloWorld {
+object Main {
 
   // Tables -------------------------------------
 
