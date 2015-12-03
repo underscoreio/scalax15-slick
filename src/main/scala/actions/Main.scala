@@ -100,7 +100,7 @@ object Main {
     AlbumTable ++= Seq(
       Album( "Chroma Key" , "Dead Air for Radios"     , 1998 , Rating.Awesome ),
       Album( "Chroma Key" , "You Go Now"              , 2000 , Rating.Awesome ),
-      Album( "Chroma Key" , "Graveyard Mountain Home" , 2000 , Rating.Awesome ))
+      Album( "Chroma Key" , "Graveyard Mountain Home" , 2004 , Rating.Awesome ))
 
   def updateRecentAlbums(year: Int): SqlAction[Int, NoStream, Effect.Write] =
     AlbumTable
