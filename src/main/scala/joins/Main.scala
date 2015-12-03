@@ -127,7 +127,7 @@ object Main {
       DBIO.sequence(Seq(
         implicitInnerJoinAction      map (resultsToString("Results of implicit inner join: ")),
         explicitInnerJoinAction      map (resultsToString("Results of explicit inner join: ")),
-        explicitSortedLeftJoinAction map (resultsToString("Results of explicit left  join: "))
+        explicitSortedLeftJoinAction map (resultsToString("Results of explicit left join: "))
       ))
 
     exec(everythingAction.transactionally).foreach(println)
