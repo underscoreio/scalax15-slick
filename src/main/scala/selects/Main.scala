@@ -1,4 +1,4 @@
-package queries
+package selects
 
 import scala.concurrent._
 import scala.concurrent.duration._

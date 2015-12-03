@@ -1,4 +1,4 @@
-package queries
+package selects
 
 import slick.driver.H2Driver.api._
 
