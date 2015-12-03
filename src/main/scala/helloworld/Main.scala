@@ -15,7 +15,7 @@ object Main {
     title    : String,
     id       : Long = 0L)
 
-  class AlbumTable(tag: Tag) extends Table[Album](tag, "messages") {
+  class AlbumTable(tag: Tag) extends Table[Album](tag, "albums") {
     def artist   = column[String]("artist")
     def title    = column[String]("title")
     def id       = column[Long]("id", O.PrimaryKey, O.AutoInc)
@@ -34,10 +34,10 @@ object Main {
 
   val insertAlbumsAction =
     AlbumTable ++= Seq(
+      Album( "Keyboard Cat"  , "Keyboard Cat's Greatest Hits" ),
+      Album( "Spice Girls"   , "Spice"                        ),
       Album( "Rick Astley"   , "Whenever You Need Somebody"   ),
       Album( "Manowar"       , "The Triumph of Steel"         ),
-      Album( "Spice Girls"   , "Spice"                        ),
-      Album( "Keyboard Cat"  , "Keyboard Cat's Greatest Hits" ),
       Album( "Justin Bieber" , "Believe"                      ))
 
   val selectAlbumsAction =

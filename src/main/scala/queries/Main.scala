@@ -17,7 +17,7 @@ object Main {
     rating : Rating,
     id     : Long = 0L)
 
-  class AlbumTable(tag: Tag) extends Table[Album](tag, "messages") {
+  class AlbumTable(tag: Tag) extends Table[Album](tag, "albums") {
     def artist = column[String]("artist")
     def title  = column[String]("title")
     def year   = column[Int]("year")
@@ -38,11 +38,11 @@ object Main {
 
   val insertAlbumsAction =
     AlbumTable ++= Seq(
-      Album( "Rick Astley"   , "Whenever You Need Somebody"   , 1987 , Rating.Awesome ),
-      Album( "Manowar"       , "The Triumph of Steel"         , 1992 , Rating.Awesome ),
-      Album( "Spice Girls"   , "Spice"                        , 1996 , Rating.Awesome ),
       Album( "Keyboard Cat"  , "Keyboard Cat's Greatest Hits" , 2009 , Rating.Awesome ),
-      Album( "Justin Bieber" , "Believe"                      , 2013 , Rating.Awesome ))
+      Album( "Spice Girls"   , "Spice"                        , 1996 , Rating.Good    ),
+      Album( "Rick Astley"   , "Whenever You Need Somebody"   , 1987 , Rating.NotBad  ),
+      Album( "Manowar"       , "The Triumph of Steel"         , 1992 , Rating.Meh     ),
+      Album( "Justin Bieber" , "Believe"                      , 2013 , Rating.Aaargh  ))
 
   val selectAllQuery: Query[AlbumTable, Album, Seq] =
     AlbumTable
