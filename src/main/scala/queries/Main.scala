@@ -1,4 +1,4 @@
-package selects
+package queries
 
 import scala.concurrent._
 import scala.concurrent.duration._
@@ -33,7 +33,7 @@ object Main {
 
   // Example queries ----------------------------
 
-  val createTablesAction =
+  val createTableAction =
     AlbumTable.schema.create
 
   val insertAlbumsAction =
@@ -78,8 +78,8 @@ object Main {
 
   val selectExerciseQuery1: Query[AlbumTable, Album, Seq] =
     AlbumTable
-      .filter(_.year   >  1990)
-      .filter(_.rating >= Rating.Ok)
+      .filter(_.year > 1990)
+      .filter(_.rating >= Rating.notBad)
       .sortBy(_.artist.asc)
 
   val selectExerciseQuery2: Query[Rep[String], String, Seq] =
@@ -120,7 +120,7 @@ object Main {
     Await.result(db.run(action), 2 seconds)
 
   def createTestAlbums() = {
-    exec(createTablesAction)
+    exec(createTableAction)
     exec(insertAlbumsAction)
   }
 

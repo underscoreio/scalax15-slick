@@ -33,7 +33,7 @@ object Main {
 
   // Actions ------------------------------------
 
-  val createTablesAction =
+  val createTableAction =
     AlbumTable.schema.create
 
   val insertAlbumsAction =
@@ -61,7 +61,7 @@ object Main {
     Await.result(db.run(action), 2 seconds)
 
   def main(args: Array[String]): Unit = {
-    exec(createTablesAction)
+    exec(createTableAction)
     exec(insertAlbumsAction)
     exec(selectAlbumsAction).foreach(println)
   }
