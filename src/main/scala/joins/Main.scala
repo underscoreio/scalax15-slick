@@ -117,22 +117,6 @@ object Main {
 
 
 
-  // Exercises ----------------------------------
-
-  val sortedLeftJoin: DBIOAction[Seq[(Artist, Option[Album])], NoStream, Effect.Read] =
-    ArtistTable.joinLeft(AlbumTable)
-      .on     { case (artist, album) => artist.id === album.artistId }
-      .sortBy { case (artist, album) => (artist.name.asc, album.map(_.year).asc) }
-      .result
-
-  val sortedRightJoin: DBIOAction[Seq[(Option[Album], Artist)], NoStream, Effect.Read] =
-    AlbumTable.joinRight(ArtistTable)
-      .on     { case (album, artist) => artist.id === album.artistId }
-      .sortBy { case (album, artist) => (artist.name.asc, album.map(_.year).asc) }
-      .result
-
-
-
   // Database -----------------------------------
 
   val db = Database.forConfig("scalaxdb")
@@ -152,12 +136,8 @@ object Main {
       createTablesAction >>
       insertAllAction >>
       DBIO.sequence(Seq(
-        implicitInnerJoin       map (resultsToString("Implicit inner join: ")),
-        sortedImplicitInnerJoin map (resultsToString("Sorted implicit inner join: ")),
-        explicitInnerJoin       map (resultsToString("Explicit inner join: ")),
-        sortedExplicitInnerJoin map (resultsToString("Sorted explicit inner join: ")),
-        sortedLeftJoin          map (resultsToString("Sorted left join: ")),
-        sortedRightJoin         map (resultsToString("Sorted right join: "))
+        implicitInnerJoin map (resultsToString("Implicit inner join: ")),
+        explicitInnerJoin map (resultsToString("Explicit inner join: "))
       ))
 
     exec(everythingAction.transactionally).foreach(println)
