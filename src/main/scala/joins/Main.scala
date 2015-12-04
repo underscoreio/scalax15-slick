@@ -78,9 +78,9 @@ object Main {
 
 
 
-  // Implicit and explicit joins ----------------
+  // Implicit joins -----------------------------
 
-  val implicitInnerJoinAction: DBIOAction[Seq[(Artist, Album)], NoStream, Effect.Read] = {
+  val implicitInnerJoin: DBIOAction[Seq[(Artist, Album)], NoStream, Effect.Read] = {
     val query = for {
       artist <- ArtistTable
       album  <- AlbumTable if artist.id === album.artistId
@@ -89,19 +89,46 @@ object Main {
     query.result
   }
 
-  val explicitInnerJoinAction: DBIOAction[Seq[(Artist, Album)], NoStream, Effect.Read] =
+  val sortedImplicitInnerJoin: DBIOAction[Seq[(Artist, Album)], NoStream, Effect.Read] = {
+    val joinedTables = for {
+      artist <- ArtistTable
+      album  <- AlbumTable if artist.id === album.artistId
+    } yield (artist, album)
+
+    joinedTables
+      .sortBy { case (artist, album) => artist.name.asc }
+      .result
+  }
+
+
+
+  // Explicit joins -----------------------------
+
+  val explicitInnerJoin: DBIOAction[Seq[(Artist, Album)], NoStream, Effect.Read] =
     ArtistTable.join(AlbumTable)
       .on { case (artist, album) => artist.id === album.artistId }
+      .result
+
+  val sortedExplicitInnerJoin: DBIOAction[Seq[(Artist, Album)], NoStream, Effect.Read] =
+    ArtistTable.join(AlbumTable)
+      .on     { case (artist, album) => artist.id === album.artistId }
+      .sortBy { case (artist, album) => (artist.name.asc, album.year.asc) }
       .result
 
 
 
   // Exercises ----------------------------------
 
-  val explicitSortedLeftJoinAction: DBIOAction[Seq[(Artist, Option[Album])], NoStream, Effect.Read] =
+  val sortedLeftJoin: DBIOAction[Seq[(Artist, Option[Album])], NoStream, Effect.Read] =
     ArtistTable.joinLeft(AlbumTable)
       .on     { case (artist, album) => artist.id === album.artistId }
       .sortBy { case (artist, album) => (artist.name.asc, album.map(_.year).asc) }
+      .result
+
+  val sortedRightJoin: DBIOAction[Seq[(Option[Album], Artist)], NoStream, Effect.Read] =
+    AlbumTable.joinRight(ArtistTable)
+      .on     { case (album, artist) => artist.id === album.artistId }
+      .sortBy { case (album, artist) => (artist.name.asc, album.map(_.year).asc) }
       .result
 
 
@@ -125,9 +152,12 @@ object Main {
       createTablesAction >>
       insertAllAction >>
       DBIO.sequence(Seq(
-        implicitInnerJoinAction      map (resultsToString("Results of implicit inner join: ")),
-        explicitInnerJoinAction      map (resultsToString("Results of explicit inner join: ")),
-        explicitSortedLeftJoinAction map (resultsToString("Results of explicit left join: "))
+        implicitInnerJoin       map (resultsToString("Implicit inner join: ")),
+        sortedImplicitInnerJoin map (resultsToString("Sorted implicit inner join: ")),
+        explicitInnerJoin       map (resultsToString("Explicit inner join: ")),
+        sortedExplicitInnerJoin map (resultsToString("Sorted explicit inner join: ")),
+        sortedLeftJoin          map (resultsToString("Sorted left join: ")),
+        sortedRightJoin         map (resultsToString("Sorted right join: "))
       ))
 
     exec(everythingAction.transactionally).foreach(println)
