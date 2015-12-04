@@ -113,21 +113,20 @@ object Main {
       .filter(_.artist === artist)
       .delete
 
-  def insertIfArtistIsAwesome(album: Album): DBIOAction[Seq[Album], NoStream, Effect.All] =
+  def insertAndRateAutomatically(artist: String, title: String, year: Int): DBIOAction[Seq[Album], NoStream, Effect.All] =
     for {
-      awesome     <- AlbumTable
-                      .filter(a =>
-                        a.artist === album.artist &&
-                        a.rating === Rating.awesome)
+      existing   <- AlbumTable
+                      .filter(a => a.artist === artist && a.year < year)
                       .result
-      numInserted <- awesome.length match {
-                       case 0 => DBIO.successful(0)
-                       case _ => AlbumTable += album
-                     }
-      results     <- AlbumTable
-                       .filter(_.artist === album.artist)
-                       .sortBy(_.year.asc)
-                       .result
+      rating      = existing.length match {
+                      case 0 => Rating.Awesome
+                      case _ => Rating.Meh
+                    }
+      _          <- AlbumTable += Album(artist, title, year, rating)
+      results    <- AlbumTable
+                      .filter(_.artist === artist)
+                      .sortBy(_.year.asc)
+                      .result
     } yield results
 
 
@@ -150,7 +149,7 @@ object Main {
       insertOneAction >>
       insertThreeFaves >>
       deleteArtistsAlbums("Justin Bieber") >>
-      insertIfArtistIsAwesome(Album("Pink Floyd", "Wish You Were Here", 1975, Rating.Awesome))
+      insertAndRateAutomatically("Keyboard Cat", "Keyboard Cat's Slightly Less Great Hits", 2010)
 
     exec(everythingAction.transactionally).foreach(println)
   }
