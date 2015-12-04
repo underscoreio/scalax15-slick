@@ -36,17 +36,17 @@ object Main {
 
   // Schema actions -----------------------------
 
-  val createTableAction: DBIOAction[Unit, NoStream, Effect.Schema] =
+  val createTableAction =
     AlbumTable.schema.create
 
-  val dropTableAction: DBIOAction[Unit, NoStream, Effect.Schema] =
+  val dropTableAction =
     AlbumTable.schema.drop
 
 
 
   // Select actions -----------------------------
 
-  val selectAction: SqlAction[Seq[String], NoStream, Effect.Read] =
+  val selectAction =
     AlbumTable
       .filter(_.artist === "Keyboard Cat")
       .map(_.title)
@@ -56,13 +56,13 @@ object Main {
 
   // Update actions -----------------------------
 
-  val updateAction: SqlAction[Int, NoStream, Effect.Write] =
+  val updateAction =
     AlbumTable
       .filter(_.artist === "Keyboard Cat")
       .map(_.title)
       .update("Even Greater Hits")
 
-  val updateAction2: SqlAction[Int, NoStream, Effect.Write] =
+  val updateAction2 =
     AlbumTable
       .filter(_.artist === "Keyboard Cat")
       .map(a => (a.title, a.year))
@@ -72,7 +72,7 @@ object Main {
 
   // Delete actions -----------------------------
 
-  val deleteAction: SqlAction[Int, NoStream, Effect.Write] =
+  val deleteAction =
     AlbumTable
       .filter(_.artist === "Justin Bieber")
       .delete
@@ -81,54 +81,16 @@ object Main {
 
   // Insert actions -----------------------------
 
-  val insertOneAction: SqlAction[Int, NoStream, Effect.Write] =
+  val insertOneAction =
     AlbumTable += Album("Pink Floyd", "Dark Side of the Moon", 1978, Rating.Awesome )
 
-  val insertAllAction: SqlAction[Option[Int], NoStream, Effect.Write] =
+  val insertAllAction =
     AlbumTable ++= Seq(
       Album( "Keyboard Cat"  , "Keyboard Cat's Greatest Hits" , 2009 , Rating.Awesome ),
       Album( "Spice Girls"   , "Spice"                        , 1996 , Rating.Good    ),
       Album( "Rick Astley"   , "Whenever You Need Somebody"   , 1987 , Rating.NotBad  ),
       Album( "Manowar"       , "The Triumph of Steel"         , 1992 , Rating.Meh     ),
       Album( "Justin Bieber" , "Believe"                      , 2013 , Rating.Aaargh  ))
-
-
-
-  // Exercise actions ---------------------------
-
-  val insertThreeFaves: SqlAction[Option[Int], NoStream, Effect.Write] =
-    AlbumTable ++= Seq(
-      Album( "Chroma Key" , "Dead Air for Radios"     , 1998 , Rating.Awesome ),
-      Album( "Chroma Key" , "You Go Now"              , 2000 , Rating.Awesome ),
-      Album( "Chroma Key" , "Graveyard Mountain Home" , 2004 , Rating.Awesome ))
-
-  def updateRecentAlbums(year: Int): SqlAction[Int, NoStream, Effect.Write] =
-    AlbumTable
-      .filter(_.year >= year)
-      .map(_.rating)
-      .update(Rating.Good)
-
-  def deleteArtistsAlbums(artist: String): SqlAction[Int, NoStream, Effect.Write] =
-    AlbumTable
-      .filter(_.artist === artist)
-      .delete
-
-  def insertIfArtistIsAwesome(album: Album): DBIOAction[Seq[Album], NoStream, Effect.All] =
-    for {
-      awesome     <- AlbumTable
-                      .filter(a =>
-                        a.artist === album.artist &&
-                        a.rating === Rating.awesome)
-                      .result
-      numInserted <- awesome.length match {
-                       case 0 => DBIO.successful(0)
-                       case _ => AlbumTable += album
-                     }
-      results     <- AlbumTable
-                       .filter(_.artist === album.artist)
-                       .sortBy(_.year.asc)
-                       .result
-    } yield results
 
 
 
@@ -148,9 +110,7 @@ object Main {
       createTableAction >>
       insertAllAction >>
       insertOneAction >>
-      insertThreeFaves >>
-      deleteArtistsAlbums("Justin Bieber") >>
-      insertIfArtistIsAwesome(Album("Pink Floyd", "Wish You Were Here", 1975, Rating.Awesome))
+      selectAction
 
     exec(everythingAction.transactionally).foreach(println)
   }
