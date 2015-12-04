@@ -24,21 +24,28 @@ If you have any problems please let me know on the [Gitter channel].
     $ cd scalax15-slick
     ~~~
 
-2. Run the example code using SBT.
+2. Run SBT:
+
+    ~~~ bash
+    $ ./sbt.sh       # "./sbt.bat" on Windows
+    ~~~
+
+3. Compile and run the example "helloworld.Main" application.
    This will take a few minutes to run the first time.
    You'll need an internet connection to download dependencies:
 
-    ~~~ bash
-    $ ./sbt.sh run     # "./sbt.bat run" on Windows
-    ~~~
+   ~~~ bash
+   sbt> runMain helloworld.Main
+   ~~~
 
-3. If you see this famous script from 2001, you're good:
+4. If you see a list of albums similar to the following, you're good:
 
     ~~~
-    Dave: Hello, HAL. Do you read me, HAL? (#1)
-    HAL: Affirmative, Dave. I read you. (#2)
-    Dave: Open the pod bay doors, HAL. (#3)
-    HAL: I'm sorry, Dave. I'm afraid I can't do that. (#4)
+    Album(Keyboard Cat,Keyboard Cat's Greatest Hits,1)
+    Album(Spice Girls,Spice,2)
+    Album(Rick Astley,Whenever You Need Somebody,3)
+    Album(Manowar,The Triumph of Steel,4)
+    Album(Justin Bieber,Believe,5)
     ~~~
 
    If not, let me know on the [Gitter channel].
