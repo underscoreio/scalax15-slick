@@ -3,7 +3,7 @@ Slick Workshop for Scala Exchange 2015
 
 Slides and companion material for the Slick workshop from [Scala Exchange 2015].
 
-Copyright 2014 [Dave Gurnell] of [Underscore]. Licensed [CC-BY-NC-SA 4.0].
+Copyright 2015 [Dave Gurnell] of [Underscore]. Licensed [CC-BY-NC-SA 4.0].
 
 **IMPORTANT! Please follow the QUICK START below PRIOR TO THE CONFERENCE.**
 
