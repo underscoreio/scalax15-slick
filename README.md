@@ -27,7 +27,7 @@ If you have any problems please let me know on the [Gitter channel].
 2. Run SBT:
 
     ~~~ bash
-    $ ./sbt.sh       # "./sbt.bat" on Windows
+    $ ./sbt.sh # ".\sbt.bat" on Windows
     ~~~
 
 3. Compile and run the example "helloworld.Main" application.
