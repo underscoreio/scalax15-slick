@@ -44,64 +44,52 @@ object Main {
       Album( "Manowar"       , "The Triumph of Steel"         , 1992 , Rating.Meh     ),
       Album( "Justin Bieber" , "Believe"                      , 2013 , Rating.Aaargh  ))
 
-  val selectAllQuery: Query[AlbumTable, Album, Seq] =
+  val selectAllQuery =
     AlbumTable
 
-  val selectWhereQuery: Query[AlbumTable, Album, Seq] =
+  val selectWhereQuery =
     AlbumTable
       .filter(_.rating === (Rating.Awesome : Rating))
 
-  val selectSortedQuery1: Query[AlbumTable, Album, Seq] =
+  val selectSortedQuery1 =
     AlbumTable
       .sortBy(_.year.asc)
 
-  val selectSortedQuery2: Query[AlbumTable, Album, Seq] =
+  val selectSortedQuery2 =
     AlbumTable
       .sortBy(a => (a.year.asc, a.rating.asc))
 
-  val selectPagedQuery: Query[AlbumTable, Album, Seq] =
+  val selectPagedQuery =
     AlbumTable
       .drop(2).take(1)
 
-  val selectColumnsQuery1: Query[Rep[String], String, Seq] =
+  val selectColumnsQuery1 =
     AlbumTable
       .map(_.title)
 
-  val selectColumnsQuery2: Query[(Rep[String], Rep[String]), (String, String), Seq] =
+  val selectColumnsQuery2 =
     AlbumTable
       .map(a => (a.artist, a.title))
 
-  val selectCombinedQuery: Query[Rep[String], String, Seq] =
+  val selectCombinedQuery =
     AlbumTable
       .filter(_.artist === "Keyboard Cat")
       .map(_.title)
-
-  val selectExerciseQuery1: Query[AlbumTable, Album, Seq] =
-    AlbumTable
-      .filter(_.year > 1990)
-      .filter(_.rating >= Rating.notBad)
-      .sortBy(_.artist.asc)
-
-  val selectExerciseQuery2: Query[Rep[String], String, Seq] =
-    AlbumTable
-      .sortBy(_.year.desc)
-      .map(_.title)
-      .take(1)
 
 
 
   // Returning single/multiple results ----------
 
-  val selectPagedAction1: DBIOAction[Seq[Album], NoStream, Effect.Read] =
+  val selectPagedAction1 =
     selectPagedQuery
       .result
 
-  val selectPagedAction2: DBIOAction[Option[Album], NoStream, Effect.Read] =
+  val selectPagedAction2 =
     selectPagedQuery
       .result
       .headOption
 
-  val selectPagedAction3: DBIOAction[Album, NoStream, Effect.Read] =
+  val selectPagedAction3 =
     selectPagedQuery
       .result
       .head
