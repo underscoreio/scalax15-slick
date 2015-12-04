@@ -1,0 +1,24 @@
+{
+  "folders":
+  [
+    {
+      "follow_symlinks": true,
+      "path": ".",
+      "folder_exclude_patterns": [
+        ".git",
+        "project/project",
+        "target",
+        "*.oo3"
+      ],
+      "file_exclude_patterns": [
+        ".gitignore",
+        "README.md",
+        "sbt-launch.jar",
+        "sbt.bat",
+        "sbt.sh",
+        "*.key",
+        "*.sublime-project"
+      ]
+    }
+  ]
+}
