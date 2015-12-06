@@ -50,11 +50,11 @@ object Main {
   // Setup --------------------------------------
 
   val createTablesAction =
-    ArtistTable.schema.create >>
+    ArtistTable.schema.create andThen
     AlbumTable.schema.create
 
   val dropTablesAction =
-    AlbumTable.schema.drop >>
+    AlbumTable.schema.drop andThen
     ArtistTable.schema.drop
 
   val insertAllAction: DBIOAction[Unit, NoStream, Effect.Write] =
