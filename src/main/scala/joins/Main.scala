@@ -89,17 +89,6 @@ object Main {
     query.result
   }
 
-  val sortedImplicitInnerJoin: DBIOAction[Seq[(Artist, Album)], NoStream, Effect.Read] = {
-    val joinedTables = for {
-      artist <- ArtistTable
-      album  <- AlbumTable if artist.id === album.artistId
-    } yield (artist, album)
-
-    joinedTables
-      .sortBy { case (artist, album) => artist.name.asc }
-      .result
-  }
-
 
 
   // Explicit joins -----------------------------
@@ -107,12 +96,6 @@ object Main {
   val explicitInnerJoin: DBIOAction[Seq[(Artist, Album)], NoStream, Effect.Read] =
     ArtistTable.join(AlbumTable)
       .on { case (artist, album) => artist.id === album.artistId }
-      .result
-
-  val sortedExplicitInnerJoin: DBIOAction[Seq[(Artist, Album)], NoStream, Effect.Read] =
-    ArtistTable.join(AlbumTable)
-      .on     { case (artist, album) => artist.id === album.artistId }
-      .sortBy { case (artist, album) => (artist.name.asc, album.year.asc) }
       .result
 
 
