@@ -144,11 +144,11 @@ object Main {
 
   def main(args: Array[String]): Unit = {
     val everythingAction =
-      createTableAction >>
-      insertAllAction >>
-      insertOneAction >>
-      insertThreeFaves >>
-      deleteArtistsAlbums("Justin Bieber") >>
+      createTableAction andThen
+      insertAllAction andThen
+      insertOneAction andThen
+      insertThreeFaves andThen
+      deleteArtistsAlbums("Justin Bieber") andThen
       insertAndRateAutomatically("Keyboard Cat", "Keyboard Cat's Slightly Less Great Hits", 2010)
 
     exec(everythingAction.transactionally).foreach(println)

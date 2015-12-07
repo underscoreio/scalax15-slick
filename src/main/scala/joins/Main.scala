@@ -50,11 +50,11 @@ object Main {
   // Setup --------------------------------------
 
   val createTablesAction =
-    ArtistTable.schema.create >>
+    ArtistTable.schema.create andThen
     AlbumTable.schema.create
 
   val dropTablesAction =
-    AlbumTable.schema.drop >>
+    AlbumTable.schema.drop andThen
     ArtistTable.schema.drop
 
   val insertAllAction: DBIOAction[Unit, NoStream, Effect.Write] =
@@ -149,8 +149,8 @@ object Main {
 
   def main(args: Array[String]): Unit = {
     val everythingAction =
-      createTablesAction >>
-      insertAllAction >>
+      createTablesAction andThen
+      insertAllAction andThen
       DBIO.sequence(Seq(
         implicitInnerJoin       map (resultsToString("Implicit inner join: ")),
         sortedImplicitInnerJoin map (resultsToString("Sorted implicit inner join: ")),

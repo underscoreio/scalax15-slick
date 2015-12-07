@@ -68,11 +68,11 @@ trait TestDataProfile {
   import profile.api._
 
   val createTablesAction =
-    ArtistTable.schema.create >>
+    ArtistTable.schema.create andThen
     AlbumTable.schema.create
 
   val dropTablesAction =
-    AlbumTable.schema.drop >>
+    AlbumTable.schema.drop andThen
     ArtistTable.schema.drop
 
   val insertAllAction: DBIOAction[Unit, NoStream, Effect.Write] =
@@ -87,8 +87,8 @@ trait TestDataProfile {
     } yield ()
 
   val doEverythingAction: DBIO[Seq[(Artist, Album)]] = (
-    createTablesAction >>
-    insertAllAction >>
+    createTablesAction andThen
+    insertAllAction andThen
     selectAllAction
   ).transactionally
 }
