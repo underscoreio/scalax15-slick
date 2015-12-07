@@ -11,12 +11,6 @@ object Rating {
   final case object Meh     extends Rating(2)
   final case object Aaargh  extends Rating(1)
 
-  val awesome : Rating = Awesome
-  val good    : Rating = Good
-  val notBad  : Rating = NotBad
-  val meh     : Rating = Meh
-  val aaargh  : Rating = Aaargh
-
   implicit val columnType: BaseColumnType[Rating] =
     MappedColumnType.base[Rating, Int](Rating.toInt, Rating.fromInt)
 
