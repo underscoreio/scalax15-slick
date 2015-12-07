@@ -62,7 +62,7 @@ trait AlbumDatabaseModule {
 
 
 
-trait TestDataProfile {
+trait TestDataModule {
   self: DatabaseProfile with ArtistDatabaseModule with AlbumDatabaseModule =>
 
   import profile.api._
@@ -98,7 +98,7 @@ trait TestDataProfile {
 class DatabaseLayer[A <: JdbcProfile](val profile: JdbcProfile) extends DatabaseProfile
   with ArtistDatabaseModule
   with AlbumDatabaseModule
-  with TestDataProfile {
+  with TestDataModule {
 
   import profile.api._
 
