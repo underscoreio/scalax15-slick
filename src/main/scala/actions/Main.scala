@@ -106,13 +106,10 @@ object Main {
     Await.result(db.run(action), 2 seconds)
 
   def main(args: Array[String]): Unit = {
-    val everythingAction =
-      createTableAction andThen
-      insertAllAction andThen
-      insertOneAction andThen
-      selectAction
-
-    exec(everythingAction.transactionally).foreach(println)
+    exec(createTableAction)
+    exec(insertAllAction)
+    exec(insertOneAction)
+    exec(selectAction).foreach(println)
   }
 
 }
