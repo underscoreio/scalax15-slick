@@ -79,7 +79,7 @@ object Main {
   val selectExerciseQuery1: Query[AlbumTable, Album, Seq] =
     AlbumTable
       .filter(_.year > 1990)
-      .filter(_.rating >= Rating.notBad)
+      .filter(_.rating >= (Rating.NotBad : Rating))
       .sortBy(_.artist.asc)
 
   val selectExerciseQuery2: Query[Rep[String], String, Seq] =
