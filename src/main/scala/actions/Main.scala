@@ -107,9 +107,9 @@ object Main {
 
   def main(args: Array[String]): Unit = {
     val everythingAction =
-      createTableAction >>
-      insertAllAction >>
-      insertOneAction >>
+      createTableAction andThen
+      insertAllAction andThen
+      insertOneAction andThen
       selectAction
 
     exec(everythingAction.transactionally).foreach(println)

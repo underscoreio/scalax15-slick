@@ -116,8 +116,8 @@ object Main {
 
   def main(args: Array[String]): Unit = {
     val everythingAction =
-      createTablesAction >>
-      insertAllAction >>
+      createTablesAction andThen
+      insertAllAction andThen
       DBIO.sequence(Seq(
         implicitInnerJoin map (resultsToString("Implicit inner join: ")),
         explicitInnerJoin map (resultsToString("Explicit inner join: "))
