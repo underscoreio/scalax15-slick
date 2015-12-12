@@ -7,13 +7,13 @@ Copyright 2015 [Dave Gurnell] of [Underscore].
 Slides and course content licensed [CC-BY-NC-SA 4.0],
 code samples licensed [Apache 2.0].
 
-**IMPORTANT! Please follow the QUICK START below PRIOR TO THE CONFERENCE.**
-
 [![Join the chat at https://gitter.im/underscoreio/scalax15-slick](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/underscoreio/scalax15-slick?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 # Quick Start
 
-Follow the instructions below prior to the conference to get started.
+A [screencast] of the workshop content is available on Vimeo.
+
+Follow the instructions below to get set up.
 Doing so will prevent you having to download the internet on conference wifi!
 You will need a Java 8 compatible JVM and a familiar programmer's text editor or IDE.
 If you have any problems please let me know on the [Gitter channel].
@@ -65,6 +65,7 @@ The content for the workshop will be based heavily on the book
 Sign up to the [Underscore newsletter] to receive news, views,
 and code samples about Scala, Slick, and functional programming.
 
+[screencast]: https://vimeo.com/148074461
 [Essential Slick]: http://underscore.io/books/essential-slick
 [Scala Exchange 2015]: http://scala.exchange
 [Dave Gurnell]: http://davegurnell.com
