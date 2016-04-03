@@ -128,3 +128,8 @@ local.properties
 # TeXlipse plugin
 .texlipse
 
+
+# Ensime
+
+.ensime
+.ensime_cache
